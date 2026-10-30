@@ -11,26 +11,26 @@
 自选课题（结合导师科研项目与本人前期研究工作）。本选题源于本人在医学视觉-语言模型训练数据构建方向上的两项前期研究：MedSkillFlow 研究如何将异构医学语料转换为与下游任务对齐的高质量监督数据，CoEvoMed 研究如何使监督数据的构建随模型能力的变化而协同演化。本论文将两项工作统一到"医学监督数据自适应构建"这一主线下进行系统研究。
 
 四、选题有关的国内外研究综述（附主要参考文献）
-（1）医学视觉-语言大模型。近年来，随着通用多模态大模型的快速发展，医学视觉-语言模型取得了显著进展。国外方面，LLaVA-Med[1] 利用 PubMed Central 图文对，由 GPT-4 自动生成指令数据，开创了利用大模型生成医学指令数据的范式。国内方面，PMC-VQA[2] 构建了大规模医学视觉问答数据集；HuatuoGPT-Vision[3] 通过对 PubMed 图文数据进行清洗与重格式化提升了医学视觉知识注入效果；GMAI-VL[4] 汇集多来源数据构建了面向通用医学人工智能的综合数据集；Lingshu[11] 构建了统一医学多模态理解与推理的通用基础模型；Hulu-Med[5] 使用约 1670 万条样本训练全开源医学通用模型；MedTrinity-25M[12] 构建了包含多粒度标注的大规模医学多模态数据集。总体来看，现有工作主要通过改进模型结构或扩大数据规模提升性能，而对"如何将异构医学语料转换为与下游任务和临床能力相一致的监督数据"关注不足。
-（2）医学监督数据构建。现有做法主要包括专家人工标注、单提示大模型生成、大规模数据混合与规则转换。人工标注质量高但难以规模化；单提示生成容易将格式要求、临床规范与能力覆盖混为一体，产生偏离临床规范的样本[1][2]；数据混合方法的监督仍按单个数据集组织，各语料之间格式与能力分布不一致[3][4][5]；规则转换成本低但过于刚性。MedVLSynther[13] 采用生成器-验证器结构从医学文献中合成视觉问答数据，提升了合成数据质量，但其构建过程仍与模型的能力需求相互独立。前期实验表明，直接使用原始混合语料训练会使模型性能低于基座模型，说明数据规模本身不足以带来性能提升，监督与目标任务分布的对齐才是关键。
-（3）大模型智能体与多智能体协作。AutoGen[6] 等工作建立了大语言模型的多智能体对话与协作机制；在医学领域，MMedAgent[7] 训练多模态智能体调用医学工具完成复杂任务，ReasonMed[14] 利用多智能体生成大规模医学推理数据。然而，这些系统主要面向推理阶段的工具调用与诊断推理，或局限于文本推理轨迹的生成，较少将多智能体协作用于多模态训练监督数据的系统化构建，更缺乏以临床能力体系为控制接口的技能编排机制。
-（4）课程学习与自适应监督。课程学习[9] 提出按由易到难的顺序组织训练样本；教师-学生课程学习[10] 依据学习进度动态选择训练任务；DataEnvGym[8] 让数据生成智能体根据学生模型反馈迭代生成训练数据。但现有方法大多只调整"选哪些数据"或"生成多少数据"，构建数据所依据的原则通常是固定的，难以适应模型在不同训练阶段的能力变化。
+（1）医学视觉-语言大模型。近年来，随着通用多模态大模型的快速发展，医学视觉-语言模型取得了显著进展。国外方面，LLaVA-Med[1] 利用 PubMed Central 图文对，由 GPT-4 自动生成指令数据，开创了利用大模型生成医学指令数据的范式。国内方面，PMC-VQA[2] 构建了大规模医学视觉问答数据集；HuatuoGPT-Vision[3] 通过对 PubMed 图文数据进行清洗与重格式化提升了医学视觉知识注入效果；GMAI-VL[4] 汇集多来源数据构建了面向通用医学人工智能的综合数据集；Lingshu[5] 构建了统一医学多模态理解与推理的通用基础模型；Hulu-Med[6] 使用约 1670 万条样本训练全开源医学通用模型；MedTrinity-25M[7] 构建了包含多粒度标注的大规模医学多模态数据集。总体来看，现有工作主要通过改进模型结构或扩大数据规模提升性能，而对"如何将异构医学语料转换为与下游任务和临床能力相一致的监督数据"关注不足。
+（2）医学监督数据构建。现有做法主要包括专家人工标注、单提示大模型生成、大规模数据混合与规则转换。人工标注质量高但难以规模化；单提示生成容易将格式要求、临床规范与能力覆盖混为一体，产生偏离临床规范的样本[1][2]；数据混合方法的监督仍按单个数据集组织，各语料之间格式与能力分布不一致[3][4][6]；规则转换成本低但过于刚性。MedVLSynther[8] 采用生成器-验证器结构从医学文献中合成视觉问答数据，提升了合成数据质量，但其构建过程仍与模型的能力需求相互独立。前期实验表明，直接使用原始混合语料训练会使模型性能低于基座模型，说明数据规模本身不足以带来性能提升，监督与目标任务分布的对齐才是关键。
+（3）大模型智能体与多智能体协作。AutoGen[9] 等工作建立了大语言模型的多智能体对话与协作机制；在医学领域，MMedAgent[10] 训练多模态智能体调用医学工具完成复杂任务，ReasonMed[11] 利用多智能体生成大规模医学推理数据。然而，这些系统主要面向推理阶段的工具调用与诊断推理，或局限于文本推理轨迹的生成，较少将多智能体协作用于多模态训练监督数据的系统化构建，更缺乏以临床能力体系为控制接口的技能编排机制。
+（4）课程学习与自适应监督。课程学习[12] 提出按由易到难的顺序组织训练样本；教师-学生课程学习[13] 依据学习进度动态选择训练任务；DataEnvGym[14] 让数据生成智能体根据学生模型反馈迭代生成训练数据。但现有方法大多只调整"选哪些数据"或"生成多少数据"，构建数据所依据的原则通常是固定的，难以适应模型在不同训练阶段的能力变化。
 综上，现有研究存在监督构建与模型学习相分离、构建过程缺乏结构化与可复用性、监督内容静态不变、自动生成数据质量保障不足等问题，这正是本论文拟解决的关键问题。
 主要参考文献：
 [1] Li C, et al. LLaVA-Med: Training a large language-and-vision assistant for biomedicine in one day[C]. NeurIPS, 2023.
 [2] Zhang X, et al. Development of a large-scale medical visual question-answering dataset[J]. Communications Medicine, 2024.
 [3] Chen J, et al. Towards injecting medical visual knowledge into multimodal LLMs at scale[C]. EMNLP, 2024.
 [4] Li T, et al. GMAI-VL & GMAI-VL-5.5M: A large vision-language model and a comprehensive multimodal dataset towards general medical AI[C]. AAAI, 2026.
-[5] Jiang S, et al. Hulu-Med: A transparent generalist model towards holistic medical vision-language understanding[J]. arXiv, 2025.
-[6] Wu Q, et al. AutoGen: Enabling next-gen LLM applications via multi-agent conversation[J]. arXiv, 2023.
-[7] Li B, et al. MMedAgent: Learning to use medical tools with multi-modal agent[C]. Findings of EMNLP, 2024.
-[8] Khan Z, et al. DataEnvGym: Data generation agents in teacher environments with student feedback[C]. ICLR, 2025.
-[9] Bengio Y, et al. Curriculum learning[C]. ICML, 2009.
-[10] Matiisen T, et al. Teacher-student curriculum learning[J]. arXiv, 2017.
-[11] Xu W, et al. Lingshu: A generalist foundation model for unified multimodal medical understanding and reasoning[J]. arXiv, 2025.
-[12] Xie Y, et al. MedTrinity-25M: A large-scale multimodal dataset with multigranular annotations for medicine[C]. ICLR, 2025.
-[13] Huang X, et al. Synthesizing high-quality visual question answering from medical documents with generator-verifier LMMs[C]. ICLR, 2026.
-[14] Sun Y, et al. ReasonMed: A 370K multi-agent generated dataset for advancing medical reasoning[C]. EMNLP, 2025.
+[5] Xu W, et al. Lingshu: A generalist foundation model for unified multimodal medical understanding and reasoning[J]. arXiv, 2025.
+[6] Jiang S, et al. Hulu-Med: A transparent generalist model towards holistic medical vision-language understanding[J]. arXiv, 2025.
+[7] Xie Y, et al. MedTrinity-25M: A large-scale multimodal dataset with multigranular annotations for medicine[C]. ICLR, 2025.
+[8] Huang X, et al. Synthesizing high-quality visual question answering from medical documents with generator-verifier LMMs[C]. ICLR, 2026.
+[9] Wu Q, et al. AutoGen: Enabling next-gen LLM applications via multi-agent conversation[J]. arXiv, 2023.
+[10] Li B, et al. MMedAgent: Learning to use medical tools with multi-modal agent[C]. Findings of EMNLP, 2024.
+[11] Sun Y, et al. ReasonMed: A 370K multi-agent generated dataset for advancing medical reasoning[C]. EMNLP, 2025.
+[12] Bengio Y, et al. Curriculum learning[C]. ICML, 2009.
+[13] Matiisen T, et al. Teacher-student curriculum learning[J]. arXiv, 2017.
+[14] Khan Z, et al. DataEnvGym: Data generation agents in teacher environments with student feedback[C]. ICLR, 2025.
 
 五、选题的理论意义、实际意义和创新点
 理论意义：现有医学视觉-语言模型的研究多集中于改进模型结构与扩大数据规模，监督数据的构建通常被视为训练之外的工程前置步骤。本研究将训练数据构建视为医学视觉-语言模型学习问题的内生组成部分，把格式异构、临床歧义与能力覆盖等原本由模型承担的难题前移至数据阶段，分解为可组合的认知操作，由多智能体协同解决。同时，本研究将课程分配建模为序贯决策问题，将构建原则的修订建模为由学习响应驱动的演化过程，形式化刻画了"监督构建—模型学习—原则修订"的双向反馈闭环，不仅调整"教什么、教多少"，还调整"如何将医学证据组织为监督"，拓展了课程学习与机器教学的理论内涵。
