@@ -26,29 +26,29 @@
 （4）课程学习与自适应监督。课程学习[20] 提出模仿人类由易到难的学习过程组织训练样本，以提升模型的收敛速度与泛化能力；迭代机器教学[21] 研究教师如何根据学习者的当前状态迭代地选择教学样本，以加快学习者的收敛；教师-学生课程学习[22] 进一步引入"学习进度"概念，由教师根据学生在各子任务上的进步速度动态选择训练任务，将课程选择建模为序贯决策问题；DataEnvGym[23] 构建了"教师环境"，让数据生成智能体根据学生模型的反馈迭代生成训练数据，实现了数据生成与模型学习之间的闭环。但现有方法大多只调整"选哪些数据"或"生成多少数据"，构建数据所依据的原则，例如问题意图如何设定、答案如何依托医学证据、概念区分如何体现等，通常是固定不变的。本人前期实验发现，同一套构建原则在训练早期与训练后期的效果存在明显差异，说明监督构建原则的有效性依赖于模型所处的训练阶段，需要随模型能力协同演化。
 综上，现有研究主要存在以下不足：一是监督构建与模型学习相分离，数据构建独立于模型需要掌握的临床能力；二是构建过程缺乏结构化与可复用性，单提示逐样本生成成本高、一致性差，规则转换又过于刚性；三是监督内容静态不变，构建原则与资源分配不随模型能力变化而调整；四是自动生成数据的质量保障不足，缺乏样本级与语料级相结合的验证机制。这些问题正是本论文拟重点解决的关键问题。
 主要参考文献：
-[1] Li C, et al. LLaVA-Med: Training a large language-and-vision assistant for biomedicine in one day[C]. NeurIPS, 2023.
-[2] Sellergren A, et al. MedGemma technical report[J]. arXiv, 2025.
-[3] Zhang X, et al. Development of a large-scale medical visual question-answering dataset[J]. Communications Medicine, 2024.
-[4] Chen J, et al. Towards injecting medical visual knowledge into multimodal LLMs at scale[C]. EMNLP, 2024.
-[5] Li T, et al. GMAI-VL & GMAI-VL-5.5M: A large vision-language model and a comprehensive multimodal dataset towards general medical AI[C]. AAAI, 2026.
-[6] Xu W, et al. Lingshu: A generalist foundation model for unified multimodal medical understanding and reasoning[J]. arXiv, 2025.
-[7] Jiang S, et al. Hulu-Med: A transparent generalist model towards holistic medical vision-language understanding[J]. arXiv, 2025.
-[8] Xie Y, et al. MedTrinity-25M: A large-scale multimodal dataset with multigranular annotations for medicine[C]. ICLR, 2025.
-[9] Bai F, et al. M3D: Advancing 3D medical image analysis with multi-modal large language models[J]. arXiv, 2024.
-[10] Lau J J, et al. A dataset of clinically generated visual questions and answers about radiology images[J]. Scientific Data, 2018.
-[11] Cui H, et al. Biomedical visual instruction tuning with clinician preference alignment[C]. NeurIPS, 2024.
-[12] Huang X, et al. Synthesizing high-quality visual question answering from medical documents with generator-verifier LMMs[C]. ICLR, 2026.
-[13] Yao S, et al. ReAct: Synergizing reasoning and acting in language models[C]. ICLR, 2023.
-[14] Shinn N, et al. Reflexion: Language agents with verbal reinforcement learning[C]. NeurIPS, 2023.
-[15] Wu Q, et al. AutoGen: Enabling next-gen LLM applications via multi-agent conversation[J]. arXiv, 2023.
-[16] Li B, et al. MMedAgent: Learning to use medical tools with multi-modal agent[C]. Findings of EMNLP, 2024.
-[17] Fallahpour A, et al. MedRAX: Medical reasoning agent for chest X-ray[C]. ICML, 2025.
-[18] Xia P, et al. MMedAgent-RL: Optimizing multi-agent collaboration for multimodal medical reasoning[C]. ICLR, 2026.
-[19] Sun Y, et al. ReasonMed: A 370K multi-agent generated dataset for advancing medical reasoning[C]. EMNLP, 2025.
-[20] Bengio Y, et al. Curriculum learning[C]. ICML, 2009.
-[21] Liu W, et al. Iterative machine teaching[C]. ICML, 2017.
-[22] Matiisen T, et al. Teacher-student curriculum learning[J]. arXiv, 2017.
-[23] Khan Z, et al. DataEnvGym: Data generation agents in teacher environments with student feedback[C]. ICLR, 2025.
+[1] Chunyuan Li, Cliff Wong, Sheng Zhang, Naoto Usuyama, Haotian Liu, Jianwei Yang, Tristan Naumann, Hoifung Poon, and Jianfeng Gao. LLaVA-Med: Training a large language-and-vision assistant for biomedicine in one day. In Advances in Neural Information Processing Systems, volume 36, pp. 28541–28564, 2023.
+[2] Andrew Sellergren, Sahar Kazemzadeh, Tiam Jaroensri, Atilla Kiraly, Madeleine Traverse, Timo Kohlberger, Shawn Xu, Fayaz Jamil, Cían Hughes, Charles Lau, Justin Chen, Fereshteh Mahvar, Liron Yatziv, Tiffany Chen, Bram Sterling, Stefanie Anna Baby, Susanna Maria Baby, Jeremy Lai, Samuel Schmidgall, Lu Yang, Kejia Chen, Per Bjornsson, Shashir Reddy, Ryan Brush, Kenneth Philbrick, Howard Hu, Howard Yang, Richa Tiwari, Sunny Jansen, Preeti Singh, Yun Liu, Shekoofeh Azizi, Aishwarya Kamath, Johan Ferret, Shreya Pathak, Nino Vieillard, Ramona Merhej, Sarah Perrin, Tatiana Matejovicova, Alexandre Ramé, Morgane Riviere, Louis Rouillard, Thomas Mesnard, Geoffrey Cideron, Jean-bastien Grill, Sabela Ramos, Edouard Yvinec, Michelle Casbon, Elena Buchatskaya, Jean-Baptiste Alayrac, Dmitry (Dima) Lepikhin, Vlad Feinberg, Sebastian Borgeaud, Alek Andreev, Cassidy Hardin, Robert Dadashi, Léonard Hussenot, Armand Joulin, Olivier Bachem, Yossi Matias, Katherine Chou, Avinatan Hassidim, Kavi Goel, Clement Farabet, Joelle Barral, Tris Warkentin, Jonathon Shlens, David Fleet, Victor Cotruta, Omar Sanseviero, Gus Martins, Phoebe Kirk, Anand Rao, Shravya Shetty, David F. Steiner, Can Kirmizibayrak, Rory Pilgrim, Daniel Golden, and Lin Yang. MedGemma technical report. arXiv preprint arXiv:2507.05201, 2025.
+[3] Xiaoman Zhang, Chaoyi Wu, Ziheng Zhao, Weixiong Lin, Ya Zhang, Yanfeng Wang, and Weidi Xie. Development of a large-scale medical visual question-answering dataset. Communications Medicine, 4(1):277, 2024.
+[4] Junying Chen, Chi Gui, Ruyi Ouyang, Anningzhe Gao, Shunian Chen, Guiming Hardy Chen, Xidong Wang, Zhenyang Cai, Ke Ji, Xiang Wan, and Benyou Wang. Towards injecting medical visual knowledge into multimodal LLMs at scale. In Proceedings of the 2024 Conference on Empirical Methods in Natural Language Processing, pp. 7346–7370, 2024.
+[5] Tianbin Li, Yanzhou Su, Wei Li, Bin Fu, Zhe Chen, Ziyan Huang, Guoan Wang, Chenglong Ma, Ying Chen, Ming Hu, Yanjun Li, Pengcheng Chen, Shixiang Tang, Xiaowei Hu, Zhongying Deng, Yuanfeng Ji, Jin Ye, Yu Qiao, and Junjun He. GMAI-VL & GMAI-VL-5.5M: A large vision-language model and a comprehensive multimodal dataset towards general medical AI. In Proceedings of the AAAI Conference on Artificial Intelligence, volume 40, pp. 23177–23185, 2026.
+[6] LASA Team, Weiwen Xu, Hou Pong Chan, Long Li, Mahani Aljunied, Ruifeng Yuan, Jianyu Wang, Chenghao Xiao, Guizhen Chen, Chaoqun Liu, Zhaodonghui Li, Yu Sun, Junao Shen, Chaojun Wang, Jie Tan, Deli Zhao, Tingyang Xu, Hao Zhang, and Yu Rong. Lingshu: A generalist foundation model for unified multimodal medical understanding and reasoning. arXiv preprint arXiv:2506.07044, 2025.
+[7] Songtao Jiang, Yuan Wang, Sibo Song, Tianxiang Hu, Chenyi Zhou, Bin Pu, Yan Zhang, Zhibo Yang, Yang Feng, Joey Tianyi Zhou, Jin Hao, Zijian Chen, Ruijia Wu, Tao Tang, Junhui Lv, Hongxia Xu, Hongwei Wang, Jun Xiao, Bin Feng, Fudong Zhu, Kenli Li, Weidi Xie, Jimeng Sun, Jian Wu, and Zuozhu Liu. Hulu-Med: A transparent generalist model towards holistic medical vision-language understanding. arXiv preprint arXiv:2510.08668, 2025.
+[8] Yunfei Xie, Ce Zhou, Lang Gao, Juncheng Wu, Xianhang Li, Hong-Yu Zhou, Sheng Liu, Lei Xing, James Y Zou, Cihang Xie, and Yuyin Zhou. MedTrinity-25M: A large-scale multimodal dataset with multigranular annotations for medicine. In International Conference on Learning Representations, pp. 6036–6060, 2025.
+[9] Fan Bai, Yuxin Du, Tiejun Huang, Max Q.-H. Meng, and Bo Zhao. M3D: Advancing 3D medical image analysis with multi-modal large language models. arXiv preprint arXiv:2404.00578, 2024.
+[10] Jason J. Lau, Soumya Gayen, Asma Ben Abacha, and Dina Demner-Fushman. A dataset of clinically generated visual questions and answers about radiology images. Scientific Data, 5(1):180251, 2018.
+[11] Hejie Cui, Quanzheng Li, Xiang Li, Xin Liang, Lingjun Mao, Hui Ren, Carl Yang, and Jieyu Zhang. Biomedical visual instruction tuning with clinician preference alignment. In Advances in Neural Information Processing Systems, volume 37, pp. 96449–96467, 2024.
+[12] Xiaoke Huang, Ningsen Wang, Hui Liu, Xianfeng Tang, and Yuyin Zhou. Synthesizing high-quality visual question answering from medical documents with generator-verifier LMMs. In International Conference on Learning Representations, pp. 109770–109806, 2026.
+[13] Shunyu Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan, and Yuan Cao. ReAct: Synergizing reasoning and acting in language models. In International Conference on Learning Representations, 2023.
+[14] Noah Shinn, Federico Cassano, Ashwin Gopinath, Karthik Narasimhan, and Shunyu Yao. Reflexion: Language agents with verbal reinforcement learning. In Advances in Neural Information Processing Systems, volume 36, pp. 8634–8652, 2023.
+[15] Qingyun Wu, Gagan Bansal, Jieyu Zhang, Yiran Wu, Beibin Li, Erkang Zhu, Li Jiang, Xiaoyun Zhang, Shaokun Zhang, Jiale Liu, Ahmed Hassan Awadallah, Ryen W White, Doug Burger, and Chi Wang. AutoGen: Enabling next-gen LLM applications via multi-agent conversations. In Conference on Language Modeling, 2024.
+[16] Binxu Li, Tiankai Yan, Yuanting Pan, Jie Luo, Ruiyang Ji, Jiayuan Ding, Zhe Xu, Shilong Liu, Haoyu Dong, Zihao Lin, and Yixin Wang. MMedAgent: Learning to use medical tools with multi-modal agent. In Findings of the Association for Computational Linguistics: EMNLP 2024, pp. 8745–8760, 2024.
+[17] Adibvafa Fallahpour, Jun Ma, Alif Munim, Hongwei Lyu, and Bo Wang. MedRAX: Medical reasoning agent for chest X-ray. In Proceedings of the 42nd International Conference on Machine Learning, volume 267, pp. 15661–15676, 2025.
+[18] Peng Xia, Jinglu Wang, Yibo Peng, Kaide Zeng, Zihan Dong, Xian Wu, Xiangru Tang, Hongtu Zhu, Yun Li, Linjun Zhang, Shujie Liu, Yan Lu, and Huaxiu Yao. MMedAgent-RL: Optimizing multi-agent collaboration for multimodal medical reasoning. In International Conference on Learning Representations, pp. 81513–81546, 2026.
+[19] Yu Sun, Xingyu Qian, Weiwen Xu, Hao Zhang, Chenghao Xiao, Long Li, Deli Zhao, Wenbing Huang, Tingyang Xu, Qifeng Bai, and Yu Rong. ReasonMed: A 370K multi-agent generated dataset for advancing medical reasoning. In Proceedings of the 2025 Conference on Empirical Methods in Natural Language Processing, pp. 26446–26467, 2025.
+[20] Yoshua Bengio, Jérôme Louradour, Ronan Collobert, and Jason Weston. Curriculum learning. In Proceedings of the 26th International Conference on Machine Learning, pp. 41–48, 2009.
+[21] Weiyang Liu, Bo Dai, Ahmad Humayun, Charlene Tay, Chen Yu, Linda B. Smith, James M. Rehg, and Le Song. Iterative machine teaching. In Proceedings of the 34th International Conference on Machine Learning, volume 70, pp. 2149–2158, 2017.
+[22] Tambet Matiisen, Avital Oliver, Taco Cohen, and John Schulman. Teacher-student curriculum learning. arXiv preprint arXiv:1707.00183, 2017.
+[23] Zaid Khan, Elias Stengel-Eskin, Jaemin Cho, and Mohit Bansal. DataEnvGym: Data generation agents in teacher environments with student feedback. In International Conference on Learning Representations, pp. 53480–53507, 2025.
 
 六、选题的理论意义、实际意义和创新点
 理论意义：
